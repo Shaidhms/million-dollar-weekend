@@ -347,6 +347,64 @@
             padding-top: 1rem;
         }
 
+        /* Script block */
+        .script-block {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            position: relative;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text);
+            white-space: pre-line;
+            user-select: text;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.3rem 0.7rem;
+            border-radius: 0.35rem;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover { color: var(--text); border-color: var(--accent-dim); }
+        .copy-btn.copied { color: var(--green); border-color: var(--green-dim); }
+
+        /* Mark done button */
+        .mark-done-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--accent);
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.2s;
+        }
+
+        .mark-done-btn:hover { border-color: var(--accent); }
+
+        .task-card.done .mark-done-btn {
+            color: var(--green);
+            border-color: var(--green-dim);
+        }
+
+        .task-card.done .mark-done-btn:hover { border-color: var(--green); }
+
         /* Lightbox */
         .lightbox {
             display: none;
@@ -498,16 +556,18 @@
         {
             id: 1,
             title: "The Dollar Challenge",
-            description: "Ask someone to give you $1. Message a friend or contact saying you're reading Million Dollar Weekend and you need to get $1 from someone. You're the first person you thought of, and it would mean a lot to have their support. Ask them to send $1 right now via Venmo, Cash App, or PayPal. Post and tag @noahkagan with #thedollarchallenge.",
+            description: "Ask someone to give you $1. Message a friend or contact using the script below. Post and tag @noahkagan with #thedollarchallenge.",
             chapter: "Chapter 1 - Just F***ing Start",
+            script: "Hey [first name],\n\nI'm reading this book Million Dollar Weekend and they told me I need to get $1 from someone.\n\nYou're the first person I thought of, and it would mean a lot to have your support.\n\nCan you send me $1 right now?\n\n[your name]",
             done: false,
             proof: null
         },
         {
             id: 2,
             title: "NOW, Not How Challenge",
-            description: "Ask one person you respect for a business idea. This is a quick way to get a business idea, realize the power of starting NOW, and build momentum toward your dream life. Text or email them: \"Hey [name], I'm trying to come up with some business ideas right now. You know me well, so I was wondering what kind of business you think I'd be good at?\"",
+            description: "Ask one person you respect for a business idea. This is a quick way to realize the power of starting NOW and build momentum toward your dream life. Use the script below.",
             chapter: "Chapter 2 - NOW, Not How",
+            script: "Hey [first name],\n\nI'm trying to come up with some business ideas right now.\n\nYou know me well, so I was wondering what kind of business you think I'd be good at?\n\n[your name]",
             done: false,
             proof: null
         },
@@ -516,10 +576,62 @@
             title: "The Coffee Challenge",
             description: "Go to any coffee shop or anyplace in person. Make a simple purchase and ask for 10 percent off. Don't say anything else. The whole point is for you to feel uncomfortable. Commit to doing this today.",
             chapter: "Chapter 3 - The Unlimited Upside of Asking",
+            script: null,
             done: false,
             proof: null
         }
     ];
+
+    // ================================================================
+    // LOCALSTORAGE - persist done state in browser
+    // ================================================================
+
+    const STORAGE_KEY = 'mdw_tasks_done';
+
+    function loadDoneState() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            tasks.forEach(t => {
+                if (saved[t.id]) t.done = true;
+            });
+        } catch(e) {}
+    }
+
+    function saveDoneState() {
+        const state = {};
+        tasks.forEach(t => { if (t.done) state[t.id] = true; });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function toggleDone(id) {
+        const task = tasks.find(t => t.id === id);
+        if (task) {
+            task.done = !task.done;
+            saveDoneState();
+            const activeFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+            renderTasks(activeFilter);
+        }
+    }
+
+    // ================================================================
+    // COPY SCRIPT
+    // ================================================================
+
+    function copyScript(id) {
+        const task = tasks.find(t => t.id === id);
+        if (!task || !task.script) return;
+        navigator.clipboard.writeText(task.script).then(() => {
+            const btn = document.querySelector(`.copy-btn[data-id="${id}"]`);
+            if (btn) {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }
+        });
+    }
 
     // ================================================================
     // RENDERING
@@ -574,7 +686,7 @@
         grid.innerHTML = filtered.map(task => `
             <div class="task-card ${task.done ? 'done' : ''}" data-id="${task.id}">
                 <div class="task-main" onclick="toggleCard(${task.id})">
-                    <div class="task-number">${task.done ? '✓' : task.id}</div>
+                    <div class="task-number">${task.done ? '&#10003;' : task.id}</div>
                     <div class="task-content">
                         <div class="task-title">${task.title}</div>
                         <div class="task-desc">${task.description}</div>
@@ -586,6 +698,13 @@
                     <div class="task-toggle-icon">&#9662;</div>
                 </div>
                 <div class="task-proof">
+                    ${task.script ? `
+                        <div class="proof-label">Script to send</div>
+                        <div class="script-block">
+                            <button class="copy-btn" data-id="${task.id}" onclick="event.stopPropagation(); copyScript(${task.id})">Copy</button>
+                            ${task.script}
+                        </div>
+                    ` : ''}
                     ${task.proof ? `
                         ${task.proof.comment ? `<div class="proof-label">What happened</div><div class="proof-comment">${task.proof.comment}</div>` : ''}
                         ${task.proof.images && task.proof.images.length > 0 ? `
@@ -595,7 +714,10 @@
                             </div>
                         ` : ''}
                         ${task.proof.date ? `<div class="proof-date">Completed: ${task.proof.date}</div>` : ''}
-                    ` : '<p class="no-proof">Not yet attempted. Go do it!</p>'}
+                    ` : ''}
+                    <button class="mark-done-btn" onclick="event.stopPropagation(); toggleDone(${task.id})">
+                        ${task.done ? '&#10003; Completed' : '&#9675; Mark as Done'}
+                    </button>
                 </div>
             </div>
         `).join('');
@@ -625,7 +747,8 @@
         document.getElementById('lightbox').classList.remove('active');
     });
 
-    // Initial render
+    // Load saved state and render
+    loadDoneState();
     renderTasks();
 </script>
 

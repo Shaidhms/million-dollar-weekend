@@ -476,6 +476,48 @@
             height: 14px;
         }
 
+        /* Chapter headers */
+        .chapter-header {
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .chapter-header:first-child { margin-top: 0; }
+
+        .chapter-part {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-dim);
+            margin-bottom: 0.15rem;
+        }
+
+        .chapter-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .chapter-progress {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+        }
+
+        /* Key insight */
+        .key-insight {
+            font-size: 0.8rem;
+            color: var(--accent);
+            background: rgba(245, 197, 66, 0.08);
+            border-left: 2px solid var(--accent-dim);
+            padding: 0.5rem 0.75rem;
+            margin-top: 0.5rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+            line-height: 1.5;
+        }
+
         /* Mobile */
         @media (max-width: 600px) {
             .container { padding: 1.25rem 1rem 3rem; }
@@ -552,12 +594,30 @@
     // ================================================================
     // TASK DATA - Edit this array to add/update challenges
     // ================================================================
+    // Chapter definitions for grouping
+    const chapters = [
+        { part: "Part I: Start It", name: "Chapter 1: Just F***ing Start", key: "ch1" },
+        { part: "Part I: Start It", name: "Chapter 2: NOW, Not How", key: "ch2" },
+        { part: "Part I: Start It", name: "Chapter 3: The Unlimited Upside of Asking", key: "ch3" },
+        { part: "Part II: Build It", name: "Chapter 4: Finding Million-Dollar Ideas", key: "ch4" },
+        { part: "Part II: Build It", name: "Chapter 5: The One-Minute Business Model", key: "ch5" },
+        { part: "Part II: Build It", name: "Chapter 6: The 48-Hour Money Challenge", key: "ch6" },
+        { part: "Part III: Grow It", name: "Chapter 7: Social Media is for Growth", key: "ch7" },
+        { part: "Part III: Grow It", name: "Chapter 8: Email is for Profit", key: "ch8" },
+        { part: "Part III: Grow It", name: "Chapter 9: The Law of 100", key: "ch9" },
+        { part: "Part IV: Scale It", name: "Chapter 10: The Growth Machine", key: "ch10" },
+        { part: "Part IV: Scale It", name: "Chapter 11: Million Dollar Weekend", key: "ch11" },
+        { part: "Part V: Bring It Home", name: "Chapter 12: 52 Chances This Year", key: "ch12" },
+    ];
+
     const tasks = [
+        // ── PART I: START IT ──
         {
             id: 1,
             title: "The Dollar Challenge",
-            description: "Ask someone to send you Rs. 100. Message a friend or contact using the script below. Post and tag @noahkagan with #thedollarchallenge.",
-            chapter: "Chapter 1 - Just F***ing Start",
+            description: "Ask someone to send you Rs. 100 (or $1). Message a friend or contact using the script below. Post and tag @noahkagan with #thedollarchallenge.",
+            chapter: "ch1",
+            insight: "The hardest part of anything is starting. This challenge gets you past the fear of asking.",
             script: "Hey [first name],\n\nI'm reading this book Million Dollar Weekend and they told me I need to get Rs. 100 from someone.\n\nYou're the first person I thought of, and it would mean a lot to have your support.\n\nCan you send me Rs. 100 right now via GPay or UPI?\n\n[your name]",
             done: false,
             proof: {
@@ -569,8 +629,9 @@
         {
             id: 2,
             title: "NOW, Not How Challenge",
-            description: "Ask one person you respect for a business idea. This is a quick way to realize the power of starting NOW and build momentum toward your dream life. Use the script below.",
-            chapter: "Chapter 2 - NOW, Not How",
+            description: "Ask one person you respect for a business idea. Text or email them using the script below. This won't even take two minutes.",
+            chapter: "ch2",
+            insight: "Stop negotiating with yourself. Say it to yourself: NOW, Not How. You're just a doer.",
             script: "Hey [first name],\n\nI'm trying to come up with some business ideas right now.\n\nYou know me well, so I was wondering what kind of business you think I'd be good at?\n\n[your name]",
             done: false,
             proof: {
@@ -583,11 +644,290 @@
             id: 3,
             title: "The Coffee Challenge",
             description: "Go to any coffee shop or anyplace in person. Make a simple purchase and ask for 10 percent off. Don't say anything else. The whole point is for you to feel uncomfortable. Commit to doing this today.",
-            chapter: "Chapter 3 - The Unlimited Upside of Asking",
+            chapter: "ch3",
+            insight: "The upside of asking is unlimited. The downside is just a moment of discomfort. Ask for things more often.",
             script: null,
             done: false,
             proof: null
-        }
+        },
+
+        // ── PART II: BUILD IT ──
+        {
+            id: 4,
+            title: "Solve Your Own Problems",
+            description: "Use these 4 questions to find business ideas from your own life:\n1. What was this morning that irritated me?\n2. What is one thing on my to-do list that's been there a week?\n3. What is one thing I regularly fail to do well?\n4. What is one thing I wanted to buy recently but no one made it?\nWrite down three ideas.",
+            chapter: "ch4",
+            insight: "Make it a habit to always keep a notebook and write down things that bother you. Problems are business opportunities.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 5,
+            title: "Bestsellers Are Your Best Friends",
+            description: "Look at what products are already selling a crap-ton on Amazon's Bestseller list. How can you accessorize the product, or sell a service to those people? Write down two accessorizing ideas.",
+            chapter: "ch4",
+            insight: "Every successful business can start this way. Start with a CUSTOMER FIRST, not a product.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 6,
+            title: "Marketplaces",
+            description: "Visit a marketplace like Etsy, Facebook Marketplace, Craigslist, or eBay. Browse what people are actively searching for and paying for. Write at least one idea for a product or service.",
+            chapter: "ch4",
+            insight: "Your potential customers are already asking for what they want. Go where they are and listen.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 7,
+            title: "Search Engine Queries",
+            description: "Use search engine questions and Reddit forums to find two more ideas. Search for things people are asking about. Sites like AnswerThePublic.com show you what people are searching for. Also browse Reddit's SomebodyMakeThis subreddit.",
+            chapter: "ch4",
+            insight: "You should now have a list of ten ideas, if not many more. Use the four challenges: solve your own problems, bestsellers, marketplaces, and search engine queries.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 8,
+            title: "One-Minute Business Model",
+            description: "Check the market size for your idea. Calculate your profit: Price, Cost, Profit per unit. Then work backwards from your goal to see how many sales you need. Fill out the worksheet for your top idea.",
+            chapter: "ch5",
+            insight: "If your idea is worth pursuing, it's profitable. Work BACKWARDS FROM YOUR GOAL to figure out how many sales you need.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 9,
+            title: "Dream Ten List for Preselling",
+            description: "Create a spreadsheet with ten rows. These are your Dream Ten prospects: ideal people you want to validate your business idea with. Columns: Name, Company, Phone, Email, When connected, When to follow up, Notes.",
+            chapter: "ch6",
+            insight: "Your aim is to determine which ones are likely to be the easiest to be your ideal customers. With them, you'll get the fastest zero to $1.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 10,
+            title: "Validation",
+            description: "Your challenge is to get at least three paying customers within forty-eight hours. Grab your Dream Ten list. Text, call, DM, or email. The more real time, the better.",
+            chapter: "ch6",
+            insight: "Focus on seeing if you can get people to buy your product. The key is: don't overthink the design, the name, the language, the ads, or any of that. Just focus on getting people to pay.",
+            script: "Hey [name], I remember you really liked [product/interest].\n\nI'm working on a new project with [your offer]. Think you'll love it. You down to be my first customer, only [price]?",
+            done: false,
+            proof: null
+        },
+
+        // ── PART III: GROW IT ──
+        {
+            id: 11,
+            title: "Write Out Your Unique Angle",
+            description: "There are no right answers here. You can change these any time you'd like.\n1. Who are you?\n2. Why should people listen?\n3. What are you passionate about?\n4. What will you do for people?",
+            chapter: "ch7",
+            insight: "Pick a Platform. With your unique angle, you need to reach an audience, and the best way to do it for FREE is through social media.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 12,
+            title: "Update Your Bio",
+            description: "Choose your one platform, and using the unique angle pitch you wrote out before, clean up and rewrite your profile/bio on that platform to reflect who you are and how you help your ideal customer.",
+            chapter: "ch7",
+            insight: "Be the Guide, Not the Guru. Document what YOU do, not what you think everyone else should do. Position yourself on a journey and document your process.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 13,
+            title: "Create Your Own Content Circle",
+            description: "Think back to your validation days. Who are the customers you want to appeal to and what's the outcome you can create content for? What's the unique point of view in your content they'd be excited to hear about? Answer these:\n- What is something everyone thinks is true, but you think is wrong?\n- What is something nobody in your target market is talking about, but should be?\n- What are the biggest mistakes people in your market are making, but are totally blind to?",
+            chapter: "ch7",
+            insight: "Your audience wants to learn something from you that's relevant, useful, and surprising. And they want to do that by going on a journey with you.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 14,
+            title: "Post One Piece of Content",
+            description: "It's time to post content publicly. Now, this piece of content can come in any format. You know I LOVE me some YouTube, but as you've seen, it can be a blog post, social media post, or video. Just post it.",
+            chapter: "ch7",
+            insight: "Getting your audience involved helps them feel like an insider, and attracts even more subscribers. Encourage comments and engagement.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 15,
+            title: "Build Your Landing Page",
+            description: "Build a landing page to collect emails. You can set up one like Julien's for free with SendFox.com (a service I helped build). There are also other services like Mailchimp.com, Webflow.com, and ConvertKit.com.",
+            chapter: "ch8",
+            insight: "Email is for profit. Your landing page is where you convert visitors into subscribers who you can reach directly.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 16,
+            title: "Update Email Signature and Social Media Bios",
+            description: "Put your landing page address in your email signature and your social media cover photos/bios. Link to your new landing page so all traffic can discover it. Do it now so people hear from you!",
+            chapter: "ch8",
+            insight: "Your most powerful tool for knocking your email list close to 100: friends, family, coworkers, and networks you already have.",
+            script: "Hey Everyone,\n\nI'm going to start publishing [description of your article/weekly tip] on how to [subject].\n\nHere's an easy way to sign up if you're interested: [landing page address]. Or just reply \"Yes, add me\" and I'll do it for you.\n\n[Your name]",
+            done: false,
+            proof: null
+        },
+        {
+            id: 17,
+            title: "Create a Lead Magnet",
+            description: "Create your first Lead Magnet using the process of content you've just been producing. You can use your piece of content from the previous chapter as a base or start something new. Don't want to turn it into a big thing later on. Just start SMALL.",
+            chapter: "ch8",
+            insight: "One of the best ways is to give a short, relevant teaser of the bonus or resource you're offering within the content, and tell people where they can learn more.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 18,
+            title: "Set Up an Autoresponder",
+            description: "Set up an autoresponder: a sequence of emails that automatically sends in response to new subscribers. Start with a 3-step progression: 1. Welcome Email, 2. Value Email, 3. Ask Email.",
+            chapter: "ch8",
+            insight: "Think of it as a personal assistant who works more or less twenty-four hours a day and don't feel bad about it. Every email provider has an autoresponder.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 19,
+            title: "The Law of 100",
+            description: "Commit to doing 100 emails, posts, or whatever action will move you closer to your goals. To live up to your commitment, use the Law of 100 Grid to track your progress and don't break the chain!\n- If you're starting a new hobby: practice for 100 days\n- If you're creating a business: directly pitch 100 customers\n- For 100 days",
+            chapter: "ch9",
+            insight: "The Law of 100 is about the power of consistency, the only way to get to greatness. Just focus on that first 100. Don't worry about whether people are watching or liking or engaging or buying or following. Just put it out.",
+            script: null,
+            done: false,
+            proof: null
+        },
+
+        // ── PART IV: SCALE IT ──
+        {
+            id: 20,
+            title: "Who's Your Customer?",
+            description: "Describe to me who your ideal customer is. The MORE specific the better. Think about their gender, age, location, and anything else that makes them unique. Then find where you can find more of them. Send the exact message in the script.",
+            chapter: "ch10",
+            insight: "Where's the one specific place you'd expect to learn about my product? That's where your customers are.",
+            script: "Hey Maria,\n\nThank you so much for being a customer.\n\nWhere's the one specific place you'd expect to learn about my product?",
+            done: false,
+            proof: null
+        },
+        {
+            id: 21,
+            title: "Where Are Your Customers?",
+            description: "Now list at least five places your customers are and how many sales in thirty days you think you can get from them. Fill out the Marketing Experiments table with expected sales for each channel.",
+            chapter: "ch10",
+            insight: "Add a column for Time: how long each activity takes. See which activities will not take much time but still get sales. Exhaust your free options first.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 22,
+            title: "What Marketing Strategies Can I Double Down On?",
+            description: "Update your original marketing experiments sheet with actual sales. This should make it obvious which experiments to double down on and which ones to kill. Fill out Expected Sales vs Actual Sales.",
+            chapter: "ch10",
+            insight: "Find what works and double down on it. Find what doesn't work and kill it. Take the tactic that works and double it. Remember, the lazy mindset works!",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 23,
+            title: "Make Your Customers Happy",
+            description: "Ask one customer: \"What is one thing I can do today that will make you twice as happy with us?\" Then answer these 5 questions in your MDW journal:\n1. What is your one goal for this year?\n2. Who exactly is your customer and where can you find them?\n3. What is one marketing activity you can double down on?\n4. How can you delight your first 100 customers?\n5. If you HAD to double your business with no money in thirty days, what would you do?",
+            chapter: "ch11",
+            insight: "TL;DR of Growth: Focus ONLY on your new customers and take advantage of the ones you already have.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 24,
+            title: "Share Your Story of Success",
+            description: "Just as you learned from Daniel, your words can inspire someone else. Send an email to noah@MillionDollarWeekend.com or post on social media and tag @noahkagan with how you've improved your life.",
+            chapter: "ch11",
+            insight: "Let's share what you've learned from reading this book and taking action. It's in the right direction.",
+            script: null,
+            done: false,
+            proof: null
+        },
+
+        // ── PART V: BRING IT HOME ──
+        {
+            id: 25,
+            title: "Write Out Your Dream Year",
+            description: "Make the checklist detailed and specific. Once you have a clear picture of your Dream Year, focus on making it come true. Instead of being reactive, you have a chance to focus on what would be an incredible year for YOU.",
+            chapter: "ch12",
+            insight: "Write it all down. Be specific. This is your year. Take a chance to write it all down.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 26,
+            title: "Find One Person to Send Your Yearly Goals To",
+            description: "Find one person to send your yearly goals to. This can be someone who invested $1 in you early on, a friend, anyone you trust. Send it to them. Put your goals where you'll see them daily:\n- On the lock screen of my phone\n- On a sticky on my computer\n- On a text file that I look at each week\n- On the mirror of my bathroom\n- On a daily note that I read every day",
+            chapter: "ch12",
+            insight: "The best way to make sure you accomplish your goals is to review and update this list. Challenge you on your promises.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 27,
+            title: "Yearly Goals List",
+            description: "Use the four categories to flush out your yearly goals. Be detailed and specific for each:\n- Work\n- Health\n- Personal\n- Travel\nColor code them: Blue = Work, Green = Health, Purple = Personal, Yellow = Travel.",
+            chapter: "ch12",
+            insight: "What color coding does is help me look at my calendar and instantly see: Am I spending my biggest blocks of time on my goals? One glance gives you an immediate snapshot of alignment.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 28,
+            title: "Accountability Buddy",
+            description: "Find one person to send your weekly goals to. For the past ten years, Noah worked with Adam Gilbert. Your accountability buddy is a superpower. Go to MillionDollarWeekend.com to join the community.",
+            chapter: "ch12",
+            insight: "Find an accountability buddy. You'll send your weekly goals. How can you meet others to help you succeed at business? Here are two ways.",
+            script: null,
+            done: false,
+            proof: null
+        },
+        {
+            id: 29,
+            title: "Connect with a Prefluencer",
+            description: "The easiest way to connect with anyone is to compliment them first WITHOUT asking for anything in return. Send this message to someone whose work you admire. Three principles:\n1. WHO's doing work you're impressed by?\n2. AND who doesn't have a ton of attention and is likely to reply?\n3. AND what can you do to help this person?",
+            chapter: "ch12",
+            insight: "Target Prefluencers. I always make an effort to connect with ambitious people BEFORE they make it. It's so much easier to connect with them and build actual relationships.",
+            script: "Hey [first name],\n\nLOVING what you're putting out. [Insert specifically what you liked or how it impacted your life.]\n\nKeep going!\n\n[Your Name]",
+            done: false,
+            proof: null
+        },
+        {
+            id: 30,
+            title: "Ask Your Friends for One Referral",
+            description: "Tell the first person that comes to mind: who's the most impressive friend you know? Send this message to that friend. Then ask for an introduction.\n1. Tell me the first person that comes to mind. Who's the most impressive friend you know?\n2. Send this message to that friend.\n3. After you've had a great meeting, go back to the original friend and ask for a referral.",
+            chapter: "ch12",
+            insight: "I like asking for just one person to make it easier to think about. And then say no pressure on the other person vs. giving them an assignment of having to introduce me to someone.",
+            script: "Hey friend,\n\nYou are the most impressive friend I know and I'd love your help in expanding my network.\n\nI love [VR, 3D printers, email marketing].\n\nWho's one person you think I should connect with?\n\nIf no one comes to mind, no pressure.",
+            done: false,
+            proof: null
+        },
     ];
 
     // ================================================================
@@ -691,7 +1031,25 @@
             return;
         }
 
-        grid.innerHTML = filtered.map(task => `
+        // Group tasks by chapter
+        let html = '';
+        let lastChapter = '';
+
+        filtered.forEach(task => {
+            const ch = chapters.find(c => c.key === task.chapter);
+            if (ch && task.chapter !== lastChapter) {
+                const chapterTasks = filtered.filter(t => t.chapter === task.chapter);
+                const chapterDone = chapterTasks.filter(t => t.done).length;
+                html += `
+                    <div class="chapter-header">
+                        <div class="chapter-part">${ch.part}</div>
+                        <div class="chapter-name">${ch.name}</div>
+                        <div class="chapter-progress">${chapterDone}/${chapterTasks.length} completed</div>
+                    </div>`;
+                lastChapter = task.chapter;
+            }
+
+            html += `
             <div class="task-card ${task.done ? 'done' : ''}" data-id="${task.id}">
                 <div class="task-main" onclick="toggleCard(${task.id})">
                     <div class="task-number">${task.done ? '&#10003;' : task.id}</div>
@@ -699,13 +1057,14 @@
                         <div class="task-title">${task.title}</div>
                         <div class="task-desc">${task.description}</div>
                         <div class="task-meta">
-                            <span class="task-chapter">${task.chapter}</span>
+                            <span class="task-chapter">${ch ? ch.name.split(': ')[1] : task.chapter}</span>
                             <span class="task-status-badge ${task.done ? 'completed' : 'pending'}">${task.done ? 'Completed' : 'Pending'}</span>
                         </div>
                     </div>
                     <div class="task-toggle-icon">&#9662;</div>
                 </div>
                 <div class="task-proof">
+                    ${task.insight ? `<div class="key-insight">${task.insight}</div>` : ''}
                     ${task.script ? `
                         <div class="proof-label">Script to send</div>
                         <div class="script-block">
@@ -727,8 +1086,10 @@
                         ${task.done ? '&#10003; Completed' : '&#9675; Mark as Done'}
                     </button>
                 </div>
-            </div>
-        `).join('');
+            </div>`;
+        });
+
+        grid.innerHTML = html;
     }
 
     function toggleCard(id) {
